@@ -13,27 +13,31 @@ int split(int *array, int lower, int upper, size_t size)
 {
 	int pivot, a, b, temp;
 
-	a = lower + 1;
-	b = upper;
-	pivot = array[lower];
-	while (b >= a)
+	a = lower;
+	pivot = array[upper];
+	for (b = lower; b < upper; b++)
 	{
-		print_array(array, size);
-		while (array[a] < pivot)
-			a++;
-		while (array[b] > pivot)
-			b--;
-		if (b > a)
+		if (array[b] < pivot)
 		{
-			temp = array[a];
-			array[a] = array[b];
-			array[b] = temp;
+			if (a != b)
+			{
+				temp = array[b];
+				array[b] = array[a];
+				array[a] = temp;
+				print_array(array, size);
+			}
+			a++;
 		}
+
 	}
-	temp = array[lower];
-	array[lower] = array[b];
-	array[b] = temp;
-	return (b);
+	if (array[a] != array[b])
+	{
+		temp = array[a];
+		array[a] = array[upper];
+		array[upper] = temp;
+		print_array(array, size);
+	}
+	return (a);
 }
 
 /**
